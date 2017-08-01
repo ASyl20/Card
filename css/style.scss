@@ -1,0 +1,214 @@
+//
+* { box-sizing: border-box;}
+
+// Variables
+
+$duration : 0.3s;
+$orange: #EF5A31;
+
+// Règles génériques
+body{
+  font-family: "Open Sans";
+  font-size: 16px;
+  line-height: 1.4;
+  background-color: #d8e0e5;
+}
+
+.card{
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  // centrage css
+  transform: translateX(-50%) translateY(-50%);
+  background-color: #fff;
+  box-shadow: 0px 0px 50px rgba(0,0,0,0.1);
+  // mettre un effet
+  transition: box-shadow $duration;
+  a{
+    // ils vont prendre la couleur du parent
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+// lorsque l'on passe sur la card
+.card:hover{
+  box-shadow: 0px 0px 50px rgba(0,0,0,0.3);
+}
+
+.card__date{
+  // si un parent est un position absolute
+  // l'enfant va etre calculé en fonction de la position absolute du parent
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+  padding-top: 10px;
+  background-color: $orange;
+  border-radius: 50%;
+  color: #FFF;
+  text-align: center;
+  line-height: 13px;
+  font-weight: bold;
+
+  &__day{
+    display: block;
+    font-size: 14px;
+  }
+
+  &__month{
+    display: block;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+}
+
+.card__thumb{
+  height: 235px;
+  overflow: hidden;
+  background-color: #000;
+  transition: height $duration , transform $duration;
+  transition: scale(1);
+  img{
+    display: block;
+    opacity: 1;
+    transition: opacity $duration;
+  }
+  // baisse l'opacité de l'image quand on passe sur la carte
+  .card:hover & img {
+    opacity: 0.6;
+    // impression de zoom
+    transform: scale(1.2);
+  }
+  .card:hover &{
+    height: 90px;
+  }
+}
+
+
+.card__body{
+  position: relative;
+  padding: 20px;
+  height: 185px;
+  transition: height $duration;
+  .card:hover &{
+    height: 185px + 145px;
+  }
+}
+
+.card__category{
+    position: absolute;
+    left:0;
+    top:  -25px;
+    height: 25px;
+    padding: 0 15px;
+    color: #FFF;
+    font-size: 11px;
+    line-height: 25px;
+    text-transform: uppercase;
+    background-color: $orange;
+}
+
+.card__title{
+  margin: 0;
+  padding: 0 0 10px 0;
+  font-size: 22px;
+  color: #000;
+  font-weight: bold;
+  .card:hover &{
+    animation: titleBlur $duration;
+  }
+}
+
+
+.card__subtitle{
+  margin: 0;
+  padding: 0 0 10px 0;
+  font-size: 19px;
+  color: $orange;
+  .card__hover &{
+    animation: subtitleBlur $duration;
+  }
+}
+
+
+.card__descriptions{
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  bottom: 65px;
+  margin: 0;
+  padding: 0;
+  color: #666C74;
+  font-size: 14px;
+  line-height: 27px;
+  opacity: 0;
+  transition: opacity $duration - 0.1s,transform $duration;
+  transition-delay: 0s;
+  transform: translateY(25px);
+  .card:hover &{
+    opacity: 1;
+    transition-delay: 0.1s;
+    transform: translateY(0);
+  }
+}
+
+.card__footer{
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  font-size: 11px;
+  color: #A3a9ab;
+  .icon--comments{
+    margin-left: 12px;
+  }
+}
+
+.icon{
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+.icon--comments{
+  width: 14px;
+  height: 14px;
+  margin-top: -2px;
+}
+.fa-commenting:after{
+  content: '\f075';
+}
+.fa-hourglass:after{
+  content: '\f254';
+}
+
+.icon--time{
+  content: '\f1e8';
+  width: 10px;
+  height: 17px;
+  margin-top: -3px;
+}
+
+
+@keyframes titleBlur{
+  0%{
+    opacity: 0.6;
+    text-shadow: 0px 5px 5px rgba(0,0,0,0.6);
+  }
+  100%{
+    opacity: 1;
+    text-shadow: 0px 5px 5px rgba(0,0,0,0);
+  }
+}
+@keyframes subtitleBlur{
+  0%{
+    opacity: 0.6;
+    text-shadow: 0px 5px 5px rgba($orange,0.6);
+  }
+  100%{
+    opacity: 1;
+    text-shadow: 0px 5px 5px rgba($orange,0);
+  }
+}
